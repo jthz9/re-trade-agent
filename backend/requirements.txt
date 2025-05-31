@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+sqlalchemy
+alembic
+python-dotenv
+langchain
+openai
+prophet
+xgboost
+tensorflow
+scikit-learn
+
