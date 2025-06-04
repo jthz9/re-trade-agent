@@ -1,15 +1,16 @@
 from fastapi import FastAPI
 from .core.config import settings
-from app.db import sqlite_utils # Database utilities
+from backend.app.models import Base # Import Base from models package
+from backend.app.db.database import engine # Import engine
 
 app = FastAPI(title=settings.APP_NAME)
 
 
 @app.on_event("startup")
 async def startup_event():
-    print("Application startup: Initializing database...")
-    sqlite_utils.initialize_db()
-    print("Database initialization complete.")
+    print("Application startup: Initializing database tables...")
+    Base.metadata.create_all(bind=engine) # Create tables
+    print("Database table initialization complete.")
 
 
 @app.get("/")

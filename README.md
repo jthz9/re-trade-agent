@@ -46,7 +46,7 @@ API 계층: RESTful 엔드포인트를 갖춘 FastAPI 백엔드
 #### 백엔드 기술
 
 - Python 3.11+ with FastAPI 프레임워크
-- 로컬 시계열 데이터 저장용 SQLite
+- 로컬 시계열 데이터 저장용 SQLite (SQLAlchemy ORM 사용)
 - AI 에이전트 오케스트레이션용 LangChain
 - ML 라이브러리: Prophet, XGBoost, TensorFlow, scikit-learn
 - 자연어 처리용 OpenAI API
@@ -238,9 +238,8 @@ re-optagent/
 │   ├── app/
 │   │   ├── agents/          # LangChain AI 에이전트 (TechnicalAdvisor, MarketAdvisor)
 │   │   ├── models/          # ML 예측 모델
-│   │   ├── data/            # 데이터 수집 모듈
-│   │   ├── api/             # FastAPI 라우트 핸들러
-│   │   └── core/            # 핵심 유틸리티 및 설정
+│   │   ├── db/                 # 데이터베이스 설정 (SQLAlchemy)
+│   │   └── database.py     # SQLAlchemy 엔진, 세션 설정, get_db 의존성
 │   ├── tests/               # 백엔드 테스트 스위트
 │   └── requirements.txt     # Python 종속성
 ├── frontend/

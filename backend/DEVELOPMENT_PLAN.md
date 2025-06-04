@@ -6,12 +6,12 @@
 
 1.  **데이터베이스 설정**:
     *   SQLite 사용 (README 기반).
-    *   SQLAlchemy를 사용하여 데이터 모델 정의 (`app/models`).
-    *   Alembic을 설정하여 데이터베이스 스키마 마이그레이션 관리.
+    *   SQLAlchemy를 사용하여 데이터 모델 정의 (`app/models`). `Base.metadata.create_all(engine)`을 통해 애플리케이션 시작 시 테이블 자동 생성 (`app/main.py`).
+    *   데이터베이스 스키마 변경은 SQLAlchemy 모델 수정 후, 애플리케이션 재시작 시 `create_all`에 의해 반영 (주의: `create_all`은 기존 테이블에 destructive한 변경을 가하지 않으므로, 복잡한 마이그레이션은 수동 SQL 또는 Alembic 같은 도구 필요. 현재는 Alembic 미사용).
 
 2.  **기본 CRUD API 및 서비스 계층 구축**:
     *   핵심 데이터 모델(기상, 시장, REC, 대기질, 예측, 거래 등)에 대한 Pydantic 스키마 정의 (`app/schemas`).
-    *   데이터베이스와 상호작용하는 서비스 로직 구현 (`app/services`).
+    *   데이터베이스와 상호작용하는 로직은 SQLAlchemy 세션과 모델 객체를 사용하여 서비스 계층(`app/services`)에서 구현. `app/db/database.py`의 `get_db` 의존성을 통해 세션 주입.
     *   FastAPI 라우터를 사용하여 CRUD API 엔드포인트 생성 (`app/api/v1/...`).
 
 3.  **외부 데이터 수집기 개발**:
